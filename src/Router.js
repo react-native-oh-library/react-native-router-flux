@@ -1,5 +1,8 @@
 import React from 'react';
-import { ViewPropTypes, BackHandler, Linking } from 'react-native';
+import {  BackHandler, Linking } from 'react-native';
+
+
+import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
 import NavigationStore from './Store';
 import defaultStore from './defaultStore';
@@ -20,19 +23,29 @@ class App extends React.Component {
     uriPrefix: null,
     onDeepLink: null,
   };
-
+  backHandlerSubscription;
+  linkingSubscription;
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+   this.backHandlerSubscription=  BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
 
     // If the app was "woken up" by an external route.
     Linking.getInitialURL().then(url => this.parseDeepURL(url));
     // Add an event listener for further deep linking.
-    Linking.addEventListener('url', this.handleDeepURL);
+    this.linkingSubscription= Linking.addEventListener('url', this.handleDeepURL);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
-    Linking.removeEventListener('url', this.handleDeepURL);
+   // BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+
+     // 使用新API移除监听
+    if (this.backHandlerSubscription) {
+      this.backHandlerSubscription.remove();
+    }
+   // Linking.removeEventListener('url', this.handleDeepURL);
+    // 使用新API移除监听
+    if (this.linkingSubscription) {
+      this.linkingSubscription.remove();
+    }
   }
 
   onBackPress = () => this.props.navigationStore.pop();

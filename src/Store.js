@@ -1,9 +1,35 @@
 import React from 'react';
-import { Image, Animated, Easing } from 'react-native';
+import { Image, Animated, Easing ,Text,View,Button, StyleSheet} from 'react-native';
+
+import { useWindowDimensions } from 'react-native';
 import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
-import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation-tabs';
+
+import {StandaloneNavigation ,navigationAction,ToggleNavTab,ReplaceAction,goBackWithAction,sceneData}from 'react-native-router-flux/src/StandaloneNavigation';
+
+
+
+
+import {NavigationContainer} from '@react-navigation/native';
+
+import { createStackNavigator } from 'react-navigation-stack'
+
+import { createMaterialTopTabNavigator,createBottomTabNavigator } from 'react-navigation-tabs';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+
+//import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
+
+import {  DrawerActions } from '@react-navigation/native';
+
+import {AuthContext} from "./context/context";
+
+// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+
+ //import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
 import PropTypes from 'prop-types';
 import createReducer from './Reducer';
 import * as ActionConst from './ActionConst';
@@ -94,6 +120,86 @@ const dontInheritKeys = [
   'title',
   'type',
 ];
+
+
+
+ const Drawern=createDrawerNavigator();
+
+//style={{ backgroundColor: 'transparent' }}
+ function TransparentComponent() {
+  return (
+    <View >
+      这里是全透明的内容
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // 使View充满整个屏幕
+    backgroundColor: 'blue', // 背景颜色设置为透明
+  },
+});
+
+
+function HomeTest(){
+
+  return  <View style={styles.container}>"ceshi"</View>;
+}
+
+function MyDrawer() {
+  const dimensions = useWindowDimensions();
+
+  const isLargeScreen = dimensions.width >= 768;
+  console.info("myDrawerppppppp");
+
+  return (
+       
+        <NavigationContainer>
+    <Drawern.Navigator
+      defaultStatus="open"
+      screenOptions={{
+        drawerType: isLargeScreen ? 'permanent' : 'back',
+        drawerStyle: isLargeScreen ? null : { width: '30%' },
+        overlayColor: 'transparent',
+      }}
+    >
+          <Drawern.Screen name="Home" component={HomeTest} />
+
+    </Drawern.Navigator>
+        </NavigationContainer>
+   
+  );
+}
+
+function MyDrawers() {
+  const dimensions = useWindowDimensions();
+
+  const isLargeScreen = dimensions.width >= 768;
+
+  return (
+        <AuthContext.Provider value={"123"}>
+        <NavigationContainer>
+    <Drawern.Navigator
+      defaultStatus="open"
+      screenOptions={{
+        drawerType: isLargeScreen ? 'permanent' : 'back',
+        drawerStyle: isLargeScreen ? null : { width: '100%' },
+        overlayColor: 'transparent',
+      }}
+    >
+          <Drawern.Screen name="Home" component={HomeTest} />
+
+    </Drawern.Navigator>
+        </NavigationContainer>
+        </AuthContext.Provider>
+  );
+}
+
+
+//  function TabViewM(){
+//   return <Text>ccdsssdd</Text>
+// }
 
 function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
@@ -383,6 +489,10 @@ function extendProps(props, store: NavigationStore) {
   }
   return res;
 }
+
+
+
+
 // eslint no-param-reassign: "error"
 function createWrapper(Component, wrapBy, store: NavigationStore) {
   if (!Component) {
@@ -475,6 +585,14 @@ function uniteParams(routeName, params) {
 
 const defaultSuccess = () => {};
 const defaultFailure = () => {};
+  var drawerData={};
+  var tabData={};
+
+  var sceneOriginData=null;
+
+  var clonesData=null;
+
+  export {drawerData,tabData,sceneOriginData,clonesData};
 
 export default class NavigationStore {
   getStateForAction = null;
@@ -516,7 +634,7 @@ export default class NavigationStore {
     this.getStateForAction = Navigator.router.getStateForAction;
     const reducer = createReducer(this);
     Navigator.router.getStateForAction = (cmd, state) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
-  };
+   };
 
   onEnterHandler = async (currentScene) => {
     if (this.states[currentScene]) {
@@ -554,6 +672,7 @@ export default class NavigationStore {
     }
   };
 
+
   onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
     this.prevState = prevState;
@@ -584,6 +703,7 @@ export default class NavigationStore {
     }
   };
 
+
   setTopLevelNavigator = (navigatorRef) => {
     this._navigator = navigatorRef;
   };
@@ -602,12 +722,16 @@ export default class NavigationStore {
     LeftNavBarButton = wrapBy(LeftButton);
     BackNavBarButton = wrapBy(BackButton);
     const Navigator = this.processScene(scene, params, [], wrapBy);
+
+    console.info("Navigator=刚刚创建的=",Navigator)
     // set initial state
     this.onNavigationStateChange(null, Navigator.router.getStateForAction(NavigationActions.init()), NavigationActions.init());
     this.setCustomReducer(Navigator);
 
     return createAppContainer(Navigator);
   };
+
+
 
   createAction = name => (args) => {
     // console.log(`Transition to state=${name}`);
@@ -619,10 +743,46 @@ export default class NavigationStore {
   };
 
   processScene = (scene: Scene, inheritProps = {}, clones = [], wrapBy) => {
+
+ console.group("🔍 processScene - 详细调试信息");
+ if(sceneOriginData==null)
+    sceneOriginData=scene;
+    // 输出整个 scene 对象
+    console.log("📦 scene 对象:", scene);
+        console.log("📦 clones 对象:", clones);
+
+        if(clones.length>0){
+          clonesData=clones;
+        }
+    // 输出 scene 的类型和构造函数
+    console.log("🔧 scene 类型:", typeof scene);
+    console.log("🏷️ scene 构造函数:", scene?.constructor?.name);
+    
+    // 输出 scene 的所有可枚举属性
+    console.log("📋 scene 自身属性:", Object.getOwnPropertyNames(scene));
+    
+    // 特别检查 props
+    if (scene.props) {
+        console.log("🎯 scene.props:", scene.props);
+        console.log("📝 scene.props 键值:", Object.keys(scene.props));
+        
+        // 输出所有 props 的详细值
+        Object.keys(scene.props).forEach(key => {
+            console.log(`   ${key}:`, scene.props[key]);
+        });
+    }
+    
+    // 检查其他重要属性
+    console.log("🔑 scene.key:", scene.key);
+    console.log("📏 scene.type:", scene.type);
+    console.log("👥 scene.children:", scene.children);
+    
+    console.groupEnd();
     assert(scene.props, 'props should be defined');
     if (!scene.props.children) {
       return null;
     }
+ 
     const res = {};
     const order = [];
     const {
@@ -631,16 +791,25 @@ export default class NavigationStore {
     let {
       tabs, modal, lightbox, overlay, drawer, transitionConfig, tabBarComponent,
     } = parentProps;
+
+    console.log("📏 000scene.type:", scene.type);
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
       drawer = true;
+          drawerData=scene;
+
+          console.log("📦 drawer scene 对象:", scene);
     } else if (scene.type === Lightbox) {
       lightbox = true;
     } else if (scene.type === Tabs) {
       tabs = true;
+      tabData=scene;
+       console.info("tabssssrestestscene",scene);
     } else if (scene.type === Overlay) {
       overlay = true;
+          console.log("📏 0 overlay = true00scene.type:", scene.type);
+                console.log("📏 0 overlay = true00scene.type:",  Overlay);
     }
 
     if (duration !== undefined && !transitionConfig) {
@@ -756,6 +925,22 @@ export default class NavigationStore {
         res[key] = screen;
       }
 
+      if(drawer){
+ console.info(" res[key] ===key="+key+"=res[key]="+res[key])
+
+ var datares=res[key];
+
+          for (let key in datares) {
+  if (datares.hasOwnProperty(key)) {
+    console.log(`dataown property - ${key}:`, datares[key]);
+  } else {
+    console.log(`datainherited property - ${key}:`, datares[key]);
+  }
+}
+
+      }
+     
+
       // a bit of magic, create all 'actions'-shortcuts inside navigationStore
       props.init = true;
       if (!this[key]) {
@@ -809,13 +994,15 @@ export default class NavigationStore {
         navigationOptions: createNavigationOptions(commonProps),
       });
     }
-
-    if (tabs) {
+   if (tabs) {
       let createTabNavigator = createMaterialTopTabNavigator;
       if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
       }
 
+ 
+      console.info("tabssssrestab",res);
+    console.info("tabssssrestest","tab");
       return createTabNavigator(res, {
         lazy,
         tabBarComponent,
@@ -827,9 +1014,13 @@ export default class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps),
         navigationOptions: createNavigationOptions(commonProps),
       });
+
+
     }
+    
 
     if (drawer) {
+      console.info("tabssssrestest","drawer");
       const config = {
         initialRouteName,
         contentComponent,
@@ -845,8 +1036,310 @@ export default class NavigationStore {
       if (drawerLockMode) {
         config.drawerLockMode = drawerLockMode;
       }
-      return createDrawerNavigator(res, config);
+ 
+      console.info("tabssssresdrawer",res);
+
+       console.info("navigationStore.create===drawersdf==contentComponent="+contentComponent+"=initialRouteName="+initialRouteName+"==scene="+scene+"==res=="+res);
+      //return createDrawerNavigator(config);
+
+      for (let key in res) {
+    if (res.hasOwnProperty(key)) { // 确保key是对象自身的属性，不是继承的
+        console.log(`res=====Key: ${key}, Value: ${res[key]}`);
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//       let resScr=res[key1]
+//       for (let key in resScr) {
+//     if (resScr.hasOwnProperty(key)) { // 确保key是对象自身的属性，不是继承的
+//         console.log(`res===data==Key: ${key}, Value: ${resScr[key]}`);
+//     }
+// }
+
+     //  console.log(`res===data==Key: ${123}, Value: ${res.key1.screen}`);
+
+
+        
+  // 调试：检查所有屏幕配置
+  console.log('=== DRAWER SCREENS DEBUG INFO ===');
+  Object.entries(res).forEach(([routeName, routeConfig]) => {
+    console.log(`Route: ${routeName}`, {
+      hasScreen: !!routeConfig.screen,
+      screenType: typeof routeConfig.screen,
+      isFunction: typeof routeConfig.screen === 'function',
+      isReactComponent: routeConfig.screen?.prototype?.isReactComponent,
+      hasNavOptions: !!routeConfig.navigationOptions,
+      routeConfig: routeConfig
+    });
+    
+    // 检查屏幕组件是否有效
+    if (!routeConfig.screen) {
+      console.error(`❌ SCREEN IS UNDEFINED FOR: ${routeName}`);
+    } else if (typeof routeConfig.screen !== 'function') {
+      console.error(`❌ SCREEN IS NOT A FUNCTION FOR: ${routeName}`, typeof routeConfig.screen);
+    }
+  });
+  console.log('=== END DEBUG INFO ===');
+
+
+
+
+    const BypassDrawer = () => {
+    const Drawer = createDrawerNavigator();
+    
+    // 直接创建简单的测试屏幕，绕过所有复杂逻辑
+    const TestScreen = (props) => {
+      console.log('TestScreen props:', props);
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>Test Screen</Text>
+          <Text>Route: {props.route?.name}</Text>
+          <Button 
+            title="Open Drawer" 
+            onPress={() => props.navigation?.openDrawer?.()} 
+          />
+        </View>
+      );
+    };
+    
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="Test"
+          screenOptions={{
+            drawerStyle: {
+              width: drawerWidth || 300,
+            },
+          }}
+        >
+          <Drawer.Screen
+            name="Test"
+            component={TestScreen}
+            options={{ title: 'Test Screen' }}
+          />
+          <Drawer.Screen
+            name="Test2" 
+            component={TestScreen}
+            options={{ title: 'Test Screen 2' }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  };
+  
+
+
+
+  console.log('res keys:', Object.keys(res));
+  Object.entries(res).forEach(([routeName, routeConfig]) => {
+    console.log(`Route: ${routeName}`, {
+      hasScreen: !!routeConfig.screen,
+      screenType: typeof routeConfig.screen,
+      isFunction: typeof routeConfig.screen === 'function',
+      isReactComponent: routeConfig.screen?.prototype?.isReactComponent,
+      screenValue: routeConfig.screen,
+      hasNavOptions: !!routeConfig.navigationOptions,
+    });
+
+
+// 简化的调试输出
+console.log('路由键:', routeName);
+console.log('是否有屏幕:', !!routeConfig.screen);
+console.log('子路由数量:', Object.keys(routeConfig.screen.router?.childRouters || {}).length);
+
+// 查看标签页结构
+if (routeConfig.screen.router?.childRouters?.tabbar) {
+  const tabs = routeConfig.screen.router.childRouters.tabbar.childRouters;
+  console.log('标签页:', Object.keys(tabs));
+  
+  Object.keys(tabs).forEach(tabKey => {
+    const tab = tabs[tabKey];
+    console.log(`标签 ${tabKey} 的子页面:`, Object.keys(tab.childRouters || {}));
+  });
+}
+
+
+  });
+
+
+  const ExistingNavigatorDrawer = () => {
+    const Drawer = createDrawerNavigator();
+    
+    const screens = Object.entries(res)
+      .filter(([routeName, routeConfig]) => routeConfig?.screen)
+      .map(([routeName, routeConfig]) => {
+        console.log(`Creating drawer screen with tab navigator: ${routeName}`);
+        
+        // 直接使用现有的标签页导航器
+        const TabNavigator = routeConfig.screen;
+        
+        return (
+          <Drawer.Screen
+            key={routeName}
+            name={routeName}
+            component={TabNavigator}
+            options={{ 
+              title: '主界面', // 设置一个友好的标题
+              drawerLabel: '主界面',
+            }}
+          />
+        );
+      });
+    
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName={Object.keys(res)[0]}
+          drawerContent={(props)=>{
+              //config.contentComponent
+
+              return <config.contentComponent/>
+
+            }}
+          screenOptions={{
+            drawerStyle: { width: 300 },
+            headerShown: true,
+          }}
+        >
+          {screens}
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  };
+  
+  
+
+
+
+  const FreshDrawer = () => {
+    const Drawer = createDrawerNavigator();
+    
+    // 完全忽略旧的 res 结构，创建全新的屏幕
+    const HomeScreen = ({ navigation }) => (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button 
+          title="Open Drawer" 
+          onPress={() => navigation.openDrawer()} 
+        />
+      </View>
+    );
+    
+    const ProfileScreen = ({ navigation }) => (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Profile Screen</Text>
+        <Button 
+          title="Open Drawer" 
+          onPress={() => navigation.openDrawer()} 
+        />
+      </View>
+    );
+    
+
+    const screens = Object.entries(res)
+      .filter(([routeName, routeConfig]) => routeConfig?.screen)
+      .map(([routeName, routeConfig]) => {
+        console.log(`Creating drawer screen with tab navigator: ${routeName}`);
+        
+        // 直接使用现有的标签页导航器
+        const TabNavigator = routeConfig.screen;
+        
+        return (
+          <Drawer.Screen
+            key={routeName}
+            name={routeName}
+            component={TabNavigator}
+            options={{ 
+              title: '主界面', // 设置一个友好的标题
+              drawerLabel: '主界面',
+            }}
+          />
+        );
+      });
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator
+
+             drawerContent={(props)=>{
+              //config.contentComponent
+
+              return <config.contentComponent/>
+
+            }}
+          screenOptions={{
+            drawerStyle: {
+              width: drawerWidth || 300,
+            },
+            // 确保使用新版导航器的默认行为
+            headerShown: true,
+            swipeEnabled: true,
+          }}
+        >
+      
+          <Drawer.Screen 
+            name="Home" 
+            component={HomeScreen}
+            options={{ title: 'Home' }}
+          />
+          <Drawer.Screen 
+            name="Profile" 
+            component={ProfileScreen}
+            options={{ title: 'Profile' }}
+          />
+
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  };
+
+
+
+
+
+    const renderDrawerContent = ({ closeDrawer }) => (
+    <View style={{ flex: 1, padding: 20 }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
+        菜单
+      </Text>
+      
+      <Button title="首页" onPress={closeDrawer} />
+      <Button title="个人资料" onPress={closeDrawer} />
+      <Button title="设置" onPress={closeDrawer} />
+      <Button title="关闭" onPress={closeDrawer} />
+    </View>
+  );
+
+  // return (
+  //   <StandaloneDrawer
+  //     position="left"
+  //     drawerWidth={280}
+  //     renderDrawerContent={HomeTest}
+  //   >
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <Text>主应用内容</Text>
+  //       <Text>点击左上角按钮打开抽屉</Text>
+  //     </View>
+  //   </StandaloneDrawer>
+  // );
+  
+    return  StandaloneNavigation;
+   
+    }
+
+ 
 
     if (overlay) {
       return createTabNavigatorHOC(OverlayRenderer)(res, {
@@ -860,6 +1353,10 @@ export default class NavigationStore {
         navigationOptions: createNavigationOptions(commonProps),
       });
     }
+
+    if(drawer){
+      console.info("drawer--绘制了");
+    }
     return createStackNavigator(res, {
       mode,
       initialRouteParams,
@@ -870,14 +1367,78 @@ export default class NavigationStore {
     });
   };
 
+
   dispatch = (action) => {
+
+    console.info("action===info",action)
+
+
+
+      console.info("🔍 DISPATCH ACTION:", {
+    type: action.type,
+    routeName: action.routeName,
+    key: action.key,
+    params: action.params ? Object.keys(action.params) : 'no params'
+  });
+
+  // 检查目标路由是否存在
+  if (action.routeName && this._navigator) {
+    const state = this._navigator.state;
+    console.info("📊 CURRENT NAV STATE:", state);
+    console.info("🎯 AVAILABLE ROUTES:", this._navigator.router ? Object.keys(this._navigator.router.childRouters || {}) : 'no child routers');
+  }
     if (this.externalDispatch) {
+
+        console.info("action===infothis.externalAction",this.externalAction)
       this.externalAction = action;
       this.externalDispatch(action);
     } else if (this._navigator) {
-      this._navigator.dispatch(action);
+    
+
+          console.info("🚀 DISPATCHING TO NAVIGATOR");
+
+         if(action.type==="Navigation/SET_PARAMS"&&isOnlyHideNavBar(action.params)){
+          ToggleNavTab(action);
+
+         }else{
+              console.info("📝 DISPATCH RESULT0000:", 123);
+
+              if(action.type==="REACT_NATIVE_ROUTER_FLUX_REPLACE"){
+            const rets=  ReplaceAction(action)
+
+            if(!rets){
+               this._navigator.dispatch(action);
+            }
+              } else{
+
+                var handlerback=false;
+                if(action.type==="Navigation/BACK"){
+                handlerback= goBackWithAction();
+              if(handlerback==false){
+                 this._navigator.dispatch(action);
+ 
+              }
+                return;
+              }
+
+    const resultnav= navigationAction(action,0);
+    console.info("📝 DISPATCH RESULT--Nav:", resultnav);
+    if(!resultnav){
+ const result = this._navigator.dispatch(action);
+    console.info("📝 DISPATCH RESULT:", result);
     }
+   
+
+     }
+    }
+    }else {
+    console.error("❌ NO NAVIGATOR REF AVAILABLE");
+  }
+   
   };
+
+
+
 
   execute = (actionType, routeName, ...params) => {
     const res = uniteParams(routeName, params);
@@ -968,3 +1529,10 @@ export default class NavigationStore {
     );
   };
 }
+
+  const isOnlyHideNavBar = (params) => {
+  if (!params) return false;
+  
+  const keys = Object.keys(params);
+  return keys.length === 1 && keys[0] === 'hideNavBar';
+};
