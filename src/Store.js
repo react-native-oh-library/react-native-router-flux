@@ -4,7 +4,7 @@ import { Image, Animated, Easing ,Text,View,Button, StyleSheet} from 'react-nati
 import { useWindowDimensions } from 'react-native';
 import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
 
-import {StandaloneNavigation ,navigationAction,ToggleNavTab,ReplaceAction,goBackWithAction,sceneData}from 'react-native-router-flux/src/StandaloneNavigation';
+import {StandaloneNavigation ,navigationAction,ToggleNavTab,ReplaceAction,goBackWithAction,sceneData}from './StandaloneNavigation';
 
 
 

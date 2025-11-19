@@ -8,13 +8,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, Button,Image, TouchableOpacity } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import {drawerData,tabData,sceneOriginData,clonesData} from 'react-native-router-flux/src/Store.js'
-import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
-import { func } from 'prop-types';
-import { StackActions } from '@react-navigation/native';
+import {drawerData,tabData,sceneOriginData,clonesData} from './Store.js'
+
 import { CommonActions } from '@react-navigation/native';
 
-import CustomDrawer from 'react-native-router-flux/src/CustomDrawer.js'
+import CustomDrawer from './CustomDrawer.js'
 const Drawer = createDrawerNavigator();
 
  const Tab = createBottomTabNavigator();
@@ -104,7 +102,7 @@ const findTabScreenInYourStructure = (targetKey) => {
       console.log(`🔍 检查: ${tabItem.key} - ${tabItem.props?.title || '无标题'}`);
       
       if (tabItem.key === targetKey) {
-        console.log(`✅ 找到匹配的 Tab.Screen:`, tabItem);
+   
         return tabItem;
       }else{
    const childrenArraydata = Array.isArray(tabItem.props?.children) ? tabItem.props?.children : [tabItem.props?.children];
@@ -112,21 +110,21 @@ const findTabScreenInYourStructure = (targetKey) => {
        if(childrenArraydata)
           for(const itemins of childrenArraydata){
 
-             console.log(`✅ 找到匹配的 itemins.Screen:`, itemins); 
+         
             if( itemins!=undefined&& itemins.key === targetKey){
               return tabItem;
             }
           }
 
-        console.log(`✅ 找到匹配的 ssTab.Screen:`, tabItem);
+      
       }
     }  }
     
-    console.log(`❌ 未找到 key: ${targetKey}`);
+
     return null;
     
   } catch (error) {
-    console.log("❌ 查找过程中出错:", error);
+ 
     return null;
   }
 };
@@ -270,40 +268,9 @@ function isRouteName(key) {
   return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(key);
 }
 
-// React Navigation v6 的设置参数方法
-function handleSetParamsV6(routeKey, params) {
-  try {
-    // 方法1: 获取当前路由并设置参数
-    const currentRoute = navigationRef.getCurrentRoute();
-    
-    if (currentRoute && currentRoute.key === routeKey) {
-      // 如果是当前路由，可以直接设置参数
-      navigationRef.setParams(params);
-      console.info("✅ 参数已设置:", params);
-    } else {
-      // 如果不是当前路由，需要通过导航来传递参数
-      console.info("🔄 目标路由不是当前路由，通过导航传递参数");
-      handleSetParamsViaNavigation(routeKey, params);
-    }
-  } catch (error) {
-    console.error("❌ 设置参数失败:", error);
-    // 回退到导航方式
-    handleSetParamsViaNavigation(routeKey, params);
-  }
-}
 
 
-function handleSetParamsViaNavigation(routeKey, params) {
-  // 通过导航到目标路由来传递参数
-  const routeName = findRouteNameByKey(routeKey);
-  
-  if (routeName) {
-    console.info("🔄 通过导航更新参数:", routeName);
-    navigationRef.navigate(routeName, params);
-  } else {
-    console.warn("⚠️ 无法找到路由名称，无法更新参数");
-  }
-}
+
 
 // 辅助函数：通过 key 查找路由名称
 function findRouteNameByKey(targetKey) {
@@ -334,81 +301,9 @@ function findRouteNameByKey(targetKey) {
 }
 
 
-// 创建 Tab 状态管理 Hook
-function useTabParams() {
-  const [tabParams, setTabParams] = React.useState({});
-  
-  React.useEffect(() => {
-    if (!navigationRef.isReady()) return;
-    
-    const updateTabParams = () => {
-      const state = navigationRef.getRootState();
-      const newParams = {};
-      
-      // 递归收集所有路由的参数
-      const collectParams = (navState) => {
-        if (!navState?.routes) return;
-        
-        navState.routes.forEach(route => {
-          if (route.params) {
-            newParams[route.name] = route.params;
-          }
-          if (route.state) {
-            collectParams(route.state);
-          }
-        });
-      };
-      
-      collectParams(state);
-      setTabParams(newParams);
-    };
-    
-    // 初始更新
-    updateTabParams();
-    
-    // 监听导航变化
-    const unsubscribe = navigationRef.addListener('state', updateTabParams);
-    
-    return unsubscribe;
-  }, []);
-  
-  return tabParams;
-}
-// 标签页导航器
-function MainTabs00() {
-  return (
-    <Tab.Navigator
-    initialRouteName='Profile'
-    
-    >
-      <Tab.Screen 
-        name="Home" 
-        component={HomeScreen}
-        options={{ title: '首页' }}
-      />
-      <Tab.Screen 
-        name="Profile" 
-        component={GetTestStack}
-        options={{ title: '资料' }}
-      />
- 
-    </Tab.Navigator>
-  );
-}
 
-function GetTestStack(){
 
-  return <Stack.Navigator initialRouteName='tab1'>
 
-    <Stack.Screen       name="ta0" 
-        component={ProfileScreen}
-        options={{ title: '资料ertre' }}></Stack.Screen>
-
-           <Stack.Screen             name="tab1" 
-        component={SettingsScreen}
-        options={{ title: '设置' }}></Stack.Screen>
-  </Stack.Navigator>
-}
 
 
 function getInitName(tabs){
@@ -436,368 +331,9 @@ function getInitName(tabs){
 }
 
 
- export function MainTabs000008({route,navigation}) {
 
 
 
-  
-  console.log("📦 drawer scene maintabs对象drawerData:", drawerData);
-
-    console.log("📦 drawer scene maintabs对象drawerData--route-:", route);
-
-  var sceneInfo = drawerData.props.children.props;
-  var tabsInfo_tabbar = sceneInfo.children.props;
-  var tabchildren = tabsInfo_tabbar.children;
-
-  console.log("📦 drawer scene maintabs对象tabsInfo_tabbar:", tabsInfo_tabbar);
-  console.log("📦 drawer scene maintabs对象tabchildren:", tabchildren);
-
-  return (
-    <Tab.Navigator
-    key="tabbar"
-    name="tabbar"
-    routeName="tabbar"
-    initialRouteName={getInitName(tabchildren)}
-
-        screenOptions={({ route }) => {
- 
- // 直接使用 navigationRef 获取最新参数
-    // const getLatestParams = () => {
-    //   if (!navigationRef.isReady()) return {};
-    //   const state = navigationRef.getState();
-    //   const tabRoute = state.routes.find(r => r.name === route.name);
-    //   return tabRoute?.params || {};
-    // };
-    
-    // const tabParams = getLatestParams();
-
-    // console.info("latestparams",tabParams);
-    // const hideTabBar = tabParams.hideTabBar || false;
-    
-    // return {
-    //   tabBarStyle: hideTabBar ? { display: 'none' } : { display: 'flex' },
-    // };
-
-    
-    return {
-   // 全局标签栏样式
-        tabBarShowLabel: tabsInfo_tabbar.showLabel,
-          // 激活状态标签样式
-    tabBarActiveBackgroundColor: tabsInfo_tabbar.activeBackgroundColor,
-      
- // inactiveBackgroundColor: tabsInfo_tabbar.inactiveBackgroundColor, // 整个标签栏的背景色
-   // tabBarActiveBackgroundColor:tabsInfo_tabbar.activeBackgroundColor, // 激活状态文字/图标颜色
-   // tabBarBackground: tabsInfo_tabbar.inactiveBackgroundColor,  // 非激活状态颜色
-
-      tabBarBackground: () => (
-      <View style={{ 
-       flex: 1, 
-        backgroundColor: tabsInfo_tabbar.inactiveBackgroundColor 
-      }} />
-    ),
-      // 其他样式...
-    };
-  }}
-    >
-      {tabchildren.map((tabItem, index) => {
-
-        // 获取标签页信息
-        const tabProps = tabItem.props;
-        const tabKey = tabItem.key;
-        const tabTitle = tabProps.title || `Tab ${index + 1}`;
-
-
-        // 直接解构获取需要的属性
-          const { 
-            component,
-            initial,
-             hideNavBar,
-             hideTabBar,
-            title, 
-            tabBarLabel, 
-            inactiveBackgroundColor, 
-            activeBackgroundColor, 
-            icon, 
-            navigationBarStyle, 
-            titleStyle, 
-            children 
-          } = tabItem.props;
-      
-
-
-
-        console.log(`📦 处理标签页 ${tabKey}:`, tabProps);
-           console.log(`📦 处理标签页 ${title}:`, children);
-
-         var  tabBarStyledata={};
-      
-           if(children==undefined){
-            var Dcom=component;
-
-          return (
-          <Tab.Screen 
-            key={tabKey}
-            hideTabBar={hideTabBar}
-            name={tabKey} 
-           
-            options={({ navigation,route }) => {
-              
-                      const finalHideTabBar = route.params?.hideTabBar ?? hideTabBar;
-                            const finalhideNavBar=  route.params?.hideNavBar??hideNavBar
-              
-              return{ 
-              
-              title: title||tabItem.title,
-              headerShown: !finalhideNavBar,
-
-              // Header 左边抽屉按钮
-              headerLeft: () => (
-                <TouchableOpacity 
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <Image 
-                    source={drawerData.props.drawerImage} 
-                    style={{ width: 24, height: 24 }} 
-                  />
-                </TouchableOpacity>
-              ),
-        
-              tabBarStyle: hideTabBar ? { display: 'none' } : { display: 'flex' },
-              // 顶部导航栏样式
-              headerStyle: {
-                backgroundColor:navigationBarStyle?.backgroundColor || '#F5FCFF',
-              },
-              headerTitleAlign: titleStyle?.alignSelf || 'center',
-              headerTitleStyle: {
-                color: titleStyle?.color || '#000',
-              },
-
-              // 底部标签栏图标和样式
-              tabBarIcon: ({ focused, color, size }) => {
-                if (icon) {
-                  // 使用自定义图标组件
-                  return React.createElement(icon, {
-                    focused,
-                    title: tabTitle
-                  });
-                }
-                // 默认图标
-                return (
-                  <Ionicons 
-                    name={focused ? 'home' : 'home-outline'} 
-                    size={size} 
-                    color={color} 
-                  />
-                );
-              },
-            }}}
-          >
-
-             {(props) => (  // ✅ 使用 children
-              <Dcom  title={title||tabItem.title} 
-      name={tabKey}
-       />
-            )}
-  
-          </Tab.Screen>
-        );
-           }
-       
-        var StackCompent=GetTabStack(children,tabItem.props,drawerData,tabsInfo_tabbar);
-
-        return  (
-          <Tab.Screen 
-            key={tabKey}
-            name={tabKey} 
-      
-            options={({ navigation,route }) => {
-
-    console.info(`📊 Tab ${route.name} hideTabBar:`, hideTabBar);
-        console.info(`📊 Tab ${route.name} initial:`, initial);
-        console.info(`📊 Tab ${route.name} hideTabBarroute:`, route);
-
-          const finalHideTabBar = route.params?.hideTabBar ?? hideTabBar;
-              return { 
-              title: title,
-              headerShown: false,
-  // 底部标签栏图标和样式
-              tabBarIcon: ({ focused, color, size }) => {
-                if (icon) {
-                  // 使用自定义图标组件
-                  return React.createElement(icon, {
-                    focused,
-                    title: tabTitle
-                  });
-                }
-                // 默认图标
-                return (
-                  <Ionicons 
-                    name={focused ? 'home' : 'home-outline'} 
-                    size={size} 
-                    color={color} 
-                  />
-                );
-              },
-                 tabBarStyle: finalHideTabBar ? { display: 'none' } : { display: 'flex' },
-            }}}
-          >
-
-
-
-             {() => (
-    StackCompent
-  )}
-
-            </Tab.Screen>
-        );
-      })}
-    </Tab.Navigator>
-  );
-}
-
-
-function GetTabStack000888(childrenScens,tabItem,drawerData,tabbarinfo){
-
-    // 确保 childrenScens 是数组
-  const scenesArray = Array.isArray(childrenScens) 
-    ? childrenScens 
-    : childrenScens ? [childrenScens] : [];
-
-  console.log("📦 childrenScens 数据类型:", typeof childrenScens);
-  console.log("📦 转换后的 scenesArray:", scenesArray);
-
-   return <Stack.Navigator>
-
-  {scenesArray.map((stackSceneItem) => {
-
-        // 获取标签页信息
-
-        let sceneKey = stackSceneItem.key;
-        // 直接解构获取需要的属性
-          const { 
-            hideNavBar,
-            component, 
-            title, 
-            onRight, 
-            rightTitle,
-            renderRightButton
-          } = stackSceneItem.props;
-          var ComP=component;
-
-                  console.info("logggoookey==",sceneKey);
-        console.info("logggooo",stackSceneItem.props);
-
-        console.log(`📦 处理stackscene页 :`, stackSceneItem);
-
-          console.log(`📦 处理stackscene页 rightTitle:`, rightTitle);
-
-          var rightFun=()=>{};
-
-       if(rightTitle!==undefined) {
-    rightFun=() => 
-              <TouchableOpacity 
-     onPress={onRight}
-     activeOpacity={0.7} // 点击时的透明度
-      >
-           <Text  >{rightTitle}</Text>
-        
-            </TouchableOpacity>
-           
-          
-       }  else if(renderRightButton!==undefined){
-        rightFun=renderRightButton
-       }
-
-  
-
-     return  <Stack.Screen 
-       key={sceneKey }
-      name={sceneKey }
-      routeName={sceneKey}
-      routeKey={sceneKey}
-      options={({ route,navigation }) => {
-          console.info(`📊 Tab ${route.name} hideNavBar:`, hideNavBar);
-        console.info(`📊 Tab ${route.name} hideNavBar:`, route);
-
-      const finalhideNavBar=  route.params?.hideNavBar??hideNavBar
-         console.info(`📊 Tab ${route.name} finalhideNavBar:`, finalhideNavBar);
-      return  { 
-        headerShown:!finalhideNavBar,
-          title:title||tabItem.title,
-
-         // Header 左边抽屉按钮
-              headerLeft: () => (
-                <TouchableOpacity 
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <Image 
-                    source={drawerData.props.drawerImage} 
-                    style={{ width: 24, height: 24 }} 
-                  />
-                </TouchableOpacity>
-              ),
-      
-              // 顶部导航栏样式
-              headerStyle: {
-                backgroundColor:tabItem.navigationBarStyle?.backgroundColor || '#F5FCFF',
-              },
-              headerTitleAlign: tabItem.titleStyle?.alignSelf || 'center',
-              headerTitleStyle: {
-                color:tabItem. titleStyle?.color || '#000',
-              },
-
-              // 底部标签栏图标和样式
-              // tabBarIcon: ({ focused, color, size }) => {
-              //   if (tabItem.icon) {
-              //     // 使用自定义图标组件
-              //     return React.createElement(tabItem.icon, {
-              //       focused,
-              //      // title: tabbarinfo.tabBarLabel
-              //      title:"titless"
-                   
-              //     });
-              //   }
-              //   // 默认图标
-              //   return (
-              //     <Ionicons 
-              //       name={focused ? 'home' : 'home-outline'} 
-              //       size={size} 
-              //       color={color} 
-              //     />
-              //   );
-              // },
-     
-           headerRight:rightFun, // 右边文字
-       }}}
-    >
-
-
-  {({route}) => {  // ✅ 使用 children
-
-const { data } = route.params || {};
-
-         return     <ComP  title={title||tabItem.title} 
- name={sceneKey}
-    onRight={onRight}
-    data={data}
-        rightTitle={rightTitle||""}/>
-  }
-            
-            
-            }
-
-
-
-
-      </Stack.Screen>
-     })}
-
-  </Stack.Navigator>
-}
 // 标签页导航器
  const  MainTabs=({route, navigation}) =>{
 
@@ -1499,6 +1035,8 @@ function MainTabs238() {
 
       const OnReight=tab0_p[0].props.onRight;
 
+  
+
   return (
     <Tab.Navigator>
       <Tab.Screen 
@@ -1673,37 +1211,7 @@ const drawerConfig = {
 };
 
 
-export function StandaloneNavigation099(){
- return  <NavigationContainer ref={navigationRef} > 
- <CustomDrawer  
-   mainContent={(props)=>{
-  return  <MainTabs {...props}></MainTabs>
 
- }}
-      drawerContent={()=>{
-
-        return <drawerData.props.contentComponent/>
-      }}
-      
-         key="drawer"
-    name="drawer"
-    routeName="drawer" 
-      ></CustomDrawer>
-      </NavigationContainer>
-}
-
-export  function StandaloneNavigation09() {
-
-  return (
-
-    <NavigationContainer ref={navigationRef} > 
-
-    <MainTabs></MainTabs>
-
-    </NavigationContainer>
-
-  )
-}
 export  function StandaloneNavigation() {
    console.log("📦 drawer scene 对象drawerData:", drawerData);
 
