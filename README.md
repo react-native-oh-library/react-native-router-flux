@@ -1,52 +1,85 @@
-# React Native Router (v4.x) [![Backers on Open Collective](https://opencollective.com/react-native-router-flux/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/react-native-router-flux/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
+> 模板版本：v0.2.2
 
-[Follow author @PAksonov](https://twitter.com/PAksonov)
+<p align="center">
+  <h1 align="center"> <code>react-native-router-flux</code> </h1>
+</p>
+<p align="center">
+    <a href="https://github.com/react-native-oh-library/react-native-router-flux">
+        <img src="https://img.shields.io/badge/platforms-android%20|%20ios%20|%20harmony%20-lightgrey.svg" alt="Supported platforms" />
+    </a>
+    <a href="https://github.com/react-native-oh-library/react-native-router-flux/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
+    </a>
+</p>
 
-`react-native-router-flux` is a different API over `react-navigation`. It helps users to define all the routes in one central place and navigate and communicate between different screens in an easy way. But it also means that `react-native-router-flux` inherits all [limitations](https://reactnavigation.org/docs/en/limitations.html) and changes from updated versions.
+> [!TIP] [Github 地址](https://github.com/react-native-oh-library/react-native-router-flux)
 
-### IMPORTANT NOTES
-#### v5.0.alpha.x is based on React Navigation v5.x (very early alpha, development in progress, help wanted!)
+## 安装与使用
 
-#### v4.2.x is based on [React Navigation v4.x](https://reactnavigation.org/docs/4.x/getting-started)
+进入到工程目录并输入以下命令：
 
-#### v4.1.0-beta.x is based on [React Navigation v3.x](https://reactnavigation.org/docs/en/3.x/getting-started.html)
+<!-- tabs:start -->
 
-#### v4.0.x is based on [React Navigation v2.x]. See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3 based on deprecated React Native Experimental Navigation API. It is not supported and may not work with latest React Native versions.
+#### **npm**
 
-#### v4.0.0-beta.x is based on [React Navigation v1.5.x](https://reactnavigation.org/). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v4.0.0-beta) for this version. It is also not supported and may not work with the latest React Native versions.
+```bash
+npm install react-native-router-flux
 
----
+# 0.72
+npm install @react-native-oh-tpl/react-native-gesture-handler@^2.14.1-2.14.15
+npm install @react-native-oh-tpl/react-native-reanimated@^3.6.4-rc.1
+npm install @react-native-oh-tpl/react-native-safe-area-context@^4.7.4-0.2.0
 
-- [Examples](#try-the-example-apps)
-- [Motivation](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
-- [v4 Features](#v4-features)
-- [API](/docs/API.md)
-- [Migrating from v3](/docs/MIGRATION.md)
-- [Sponsors/Backers/Contributors](#contributors)
+npm install @react-native-oh-tpl/react-native-screens@^3.34.0-rc.1
+npm install @react-navigation/drawer@^6.7.2
+npm install @react-navigation/bottom-tabs@^6.6.1
+npm install @react-navigation/stack@6.3.0
 
-## Getting Started
+# 0.77
+npm install @react-native-ohos/react-native-gesture-handler@2.23.2-rc.1
+npm install @react-native-ohos/react-native-reanimated@3.18.1-rc.1
+npm install @react-native-ohos/react-native-safe-area-contextt@5.1.1-rc.1
 
-1. Install native dependencies used by RNRF (see below, https://reactnavigation.org/docs/en/getting-started.html)
-2. Install this component
+npm install @react-native-ohos/react-native-screens@4.8.1-rc.4
+npm install @react-navigation/drawer@^7.1.17
+npm install @react-navigation/bottom-tabs@^7.1.0
+npm install @react-navigation/stack@7.2.10
 
-```sh
-yarn add react-native-router-flux
 ```
 
-## install the following libraries first
-1. react-native-screens by ( ``` npm install react-native-screens || yarn add react-native-screens ```)
-2. react-native-gesture-handler ( ``` npm install react-native-gesture-handler || yarn add react-native-gesture-handler ```)
-3. react-native-reanimated (``` npm install react-native-reanimated || yarn add react-native-reanimated ```)
-4. react-native-safe-area-context (``` npm install react-native-safe-area-context || yarn add react-native-react-native-safe-area-context ```)
-5. @react-native-community/masked-view (``` npm install @react-native-community/masked-view || yarn add @react-native-community/masked-view ```)
+#### **yarn**
 
+```bash
+yarn add react-native-router-flux
 
+# 0.72
+yarn add   @react-native-oh-tpl/react-native-gesture-handler@^2.14.1-2.14.15
+yarn add @react-native-oh-tpl/react-native-reanimated@^3.6.4-rc.1
+yarn add @react-native-oh-tpl/react-native-safe-area-context@^4.7.4-0.2.0
 
-## Usage
+yarn add @react-native-oh-tpl/react-native-screens@^3.34.0-rc.1
+yarn add @react-navigation/drawer@^6.7.2
+yarn add @react-navigation/bottom-tabs@^6.6.1
+yarn add @react-navigation/stack@6.3.0
 
-Define all your routes in one React component...
+# 0.77
+yarn add   @react-native-ohos/react-native-gesture-handler@2.23.2-rc.1
+yarn add   @react-native-ohos/react-native-reanimated@3.18.1-rc.1
+yarn add   @react-native-ohos/react-native-safe-area-contextt@5.1.1-rc.1
 
-```jsx
+yarn add   @react-native-ohos/react-native-screens@4.8.1-rc.4
+yarn add   @react-navigation/drawer@^7.1.17
+yarn add   @react-navigation/bottom-tabs@^7.1.0
+yarn add   @react-navigation/stack@7.2.10
+```
+
+<!-- tabs:end -->
+
+下面的代码展示了该库的基本使用场景：
+
+**Hello world**
+从 react-native-router-flux 包中 import 组件即可使用
+```
 const App = () => (
   <Router>
     <Stack key="root">
@@ -57,115 +90,214 @@ const App = () => (
   </Router>
 );
 ```
-
-...and navigate from one scene to another scene with a simple and powerful API.
-
-```jsx
-// Login.js
-
-// navigate to 'home' as defined in your top-level router
-Actions.home(PARAMS);
-
-// go back (i.e. pop the current screen off the nav stack)
-Actions.pop();
-
-// refresh the current Scene with the specified props
-Actions.refresh({ param1: 'hello', param2: 'world' });
+**按需加载**
+使用单独 import 组件实现按需加载
 ```
 
-## API
-
-For a full listing of the API, [view the API docs](https://github.com/aksonov/react-native-router-flux/blob/master/docs/API.md).
-
-## Try the [example apps](https://github.com/aksonov/react-native-router-flux/tree/master/examples)
-
-![rnrf](https://user-images.githubusercontent.com/3681859/27937441-ef61d932-626b-11e7-885f-1db7dc74b32e.gif)
-
-```sh
-# Get the code
-git clone https://github.com/aksonov/react-native-router-flux.git
-cd react-native-router-flux/examples/[expo|react-native|redux]
-
-# Installing dependencies
-yarn
-
-# Run it
-yarn start
+import {
+  Scene,
+  Router,
+  Actions,
+  ActionConst,
+  Overlay,
+  Tabs,
+  Modal,
+  Drawer,
+  Stack,
+  Lightbox,
+} from 'react-native-router-flux';
 ```
 
-## v4 Features
+## Link
 
-- Based on latest [React Navigation](https://reactnavigation.org) API
-- Separate navigation logic from presentation. You may now change navigation state directly from your business logic code - stores/reducers/etc. navigationStore
-- Built-in state machine (v3 `Switch` replacement)
-  - Each `Scene` with `component` defined can have `onEnter`/`onExit`/`on` handlers.
-  - `onEnter`/`on` handler can be async.
-  - For 'truthy' return of `onEnter`/`on`, `success` handler (if defined) will be executed
-    - if `success` is a string then router will navigate to the `Scene` with that key
-  - in case of handler's failure, `failure` prop (if defined) will be run.
-  - Combining `onEnter`, `onExit`, `success`, and `failure` makes patterns like authentication, data validation, and conditional transitions simple and intuitive.
-- [MobX](https://mobx.js.org/)-friendly: all scenes are wrapped with `observer`. You may subscribe to `navigationStore` (`Actions` in v3) and observe current navigation state. Not applicable to Redux.
-- Flexible Nav bar customization, currently not allowed by React Navigation:
-  https://github.com/react-community/react-navigation/issues/779
-- Drawer support (provided by React Navigation)
-- Inheritance of scene attributes allow you to avoid any code/attribute duplications. Adding `rightTitle` to a scene will apply to all child scenes simultaneously. See example app.
-- Access to your app navigations state as simple as `Actions.state`.
-- Use `Actions.currentScene` to get name of current scene.
+本库 HarmonyOS 侧实现依赖@react-native-oh-tpl/react-native-reanimated、@react-native-ohos/react-native-reanimated 的原生端代码，如已在 HarmonyOS 工程中引入过该库，则无需再次引入，可跳过本章节步骤，直接使用。
 
-### Helpful tips if you run into some gotchas
+如未引入请参照[@react-native-oh-tpl/react-native-screens 文档](/zh-cn/react-native-screens.md)、[@react-native-ohos/react-native-screens 文档](/zh-cn/react-native-screens.md)进行引入
 
-## Using Static on Methods with HOCs
+## 约束与限制
 
-- This is just a helpful tip for anyone who use the onExit/onEnter methods as a static method in their Component Class. Please refer to this link https://reactjs.org/docs/higher-order-components.html.
+### 兼容性
 
-- If your Scene Components are Wrapped in Custom HOCs/ Decorators, then the static onExit/onEnter methods will not work as your Custom HOCs will not copy the static methods over to your Enhanced Component.Use the npm package called hoist-non-react-statics to copy your Component level static methods over to your Enhanced Component.
+本文档内容基于以下环境验证通过：
 
-## Implement onBack from your Scene after declaring it
+1. RNOH: 0.72.x/0.77.x; SDK：HarmonyOS 6.0.0.47 (API Version 20 Release); IDE：DevEco Studio 6.0.0 Release; ROM：NEXT.5.0.0.212;
 
-- If you have a Scene where in you want to make some changes to your Component State when Back button is pressed, then doing this
+## 组件
 
-```jsx
-<Scene key={...} component={...} onBack={()=>{/*code*/}}/>
-```
+> [!TIP] "Platform" 列表示该属性在原三方库上支持的平台。
 
-will not help.
+> [!TIP] "HarmonyOS Support"列为 yes 表示 HarmonyOS 平台支持该属性；no 则表示不支持；partially 表示部分支持。使用方法跨平台一致，效果对标 iOS 或 Android 的效果。
 
-```jsx
-<Scene key={...} component={...} onBack={()=>{/*code*/}} back={true}/>
-```
+### 1. Router - 路由
 
-Make sure back = true is passed to your scene, now in your Component's lifecycle add this
+Router 管理整个应用的页面导航和转场效果。
 
-```jsx
-componentDidMount(){
-    InteractionManager.runAfterInteractions(()=> {
-        Actions.refresh({onBack:()=>this.changeSomethingInYourComponent()})
-    })
-}
-```
 
-## Contributors
+**Router属性：**
 
-This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="https://github.com/aksonov/react-native-router-flux/graphs/contributors"><img src="https://opencollective.com/react-native-router-flux/contributors.svg?width=890" /></a>
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| sceneStyle | 场景容器的样式 | style | no | iOS/Android | yes |
+| backAndroidHandler | Android 返回键自定义处理函数 | function | no | iOS/Android | yes |
+| wrapBy | 高阶组件包装函数，用于给每个场景添加额外的包装 | function | no | iOS/Android | yes |
+| scenes | 定义路由场景配置（路由表） | any | no | iOS/Android | yes |
+| createReducer | 创建自定义的导航 reducer | function | no | iOS/Android | yes |
+| onStateChange | 导航状态变化时的回调函数 | function | no | iOS/Android | yes |
+| getSceneStyle |动态获取场景样式的函数 | function | no | iOS/Android | yes |
+| uriPrefix | 设置深度链接（Deep Link）的 URI 前缀 | string | no | iOS/Android | yes |
+| onDeepLink | 定义路由场景配置（路由表） | function | no | iOS/Android | yes |
 
-## Backers
+### 2. Scene - 场景
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/react-native-router-flux#backer)]
+定义页面路由配置的核心接口
 
-<a href="https://opencollective.com/react-native-router-flux#backers" target="_blank"><img src="https://opencollective.com/react-native-router-flux/backers.svg?width=890"></a>
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| key | 场景的唯一标识符 | string | yes | iOS/Android | yes |
+| component | 场景对应的React组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| back | 是否作为返回页面 | boolean | no | iOS/Android | yes |
+| init | 是否初始化场景 | boolean | no | iOS/Android | yes |
+| clone | 是否克隆场景 | boolean | no | iOS/Android | yes |
+| contentComponent | 内容组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| backButtonImage | 返回按钮图片路径 | string | no | iOS/Android | yes |
+| backButtonTintColor | 返回按钮颜色 | string | no | iOS/Android | yes |
+| drawer | 是否作为抽屉菜单 | boolean | no | iOS/Android | yes |
+| failure | 导航失败时的回调函数或场景key | (() => void) \| string | no | iOS/Android | yes |
+| headerBackTitle | 头部返回按钮标题 | string | no | iOS/Android | yes |
+| headerMode | 头部模式 | HeaderModeType | no | iOS/Android | yes |
+| hideNavBar | 是否隐藏导航栏 | boolean | no | iOS/Android | yes |
+| hideTabBar | 是否隐藏标签栏 | boolean | no | iOS/Android | yes |
+| hideBackImage | 是否隐藏返回图片 | boolean | no | iOS/Android | yes |
+| initial | 是否作为初始场景 | boolean | no | iOS/Android | yes |
+| leftButtonImage | 左侧按钮图片 | Image | no | iOS/Android | yes |
+| modal | 是否以模态形式显示 | boolean | no | iOS/Android | yes |
+| navigationBarTitleImage | 导航栏标题图片 | Image | no | iOS/Android | yes |
+| navigationBarTitleImageStyle | 导航栏标题图片样式 | StyleProp<ImageStyle> | no | iOS/Android | yes |
+| navTransparent | 导航栏是否透明 | boolean | no | iOS/Android | yes |
+| on | 通用事件处理函数 | (props: any) => void | no | iOS/Android | yes |
+| onEnter | 进入场景时的回调函数 | (props: any) => void | no | iOS/Android | yes |
+| onExit | 退出场景时的回调函数 | (props: any) => void | no | iOS/Android | yes |
+| onLeft | 左侧按钮点击事件 | (props: any) => void | no | iOS/Android | yes |
+| onRight | 右侧按钮点击事件 | (props: any) => void | no | iOS/Android | yes |
+| renderTitle | 自定义标题渲染组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| renderLeftButton | 自定义左侧按钮渲染组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| renderRightButton | 自定义右侧按钮渲染组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| renderBackButton | 自定义返回按钮渲染组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| rightTitle | 右侧按钮标题 | string | no | iOS/Android | yes |
+| rightButtonImage | 右侧按钮图片 | Image \| null | no | iOS/Android | yes |
+| rightButtonTextStyle | 右侧按钮文本样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
+| success | 导航成功时的回调函数或场景key | (() => void) \| string | no | iOS/Android | yes |
+| tabs | 是否作为标签页容器 | boolean | no | iOS/Android | yes |
+| title | 场景标题 | (() => string) \| string | no | iOS/Android | yes |
+| titleStyle | 标题样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
+| type | 导航动作类型 | ActionConstShort | no | iOS/Android | yes |
+| [name: string] | 其他自定义属性，会传递给场景组件 | any | no | iOS/Android | yes |
 
-## Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/react-native-router-flux#sponsor)]
+### 3. Tabs - 标签容器
 
-<a href="https://opencollective.com/react-native-router-flux/sponsor/0/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/1/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/2/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/3/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/4/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/5/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/6/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/7/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/8/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/9/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/9/avatar.svg"></a>
+定义了 标签页容器的所有配置选项。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| wrap | 是否包装标签页 | boolean | no | iOS/Android | yes |
+| activeBackgroundColor | 激活状态的背景颜色 | string | no | iOS/Android | yes |
+| activeTintColor | 激活状态的文字颜色 | string | no | iOS/Android | yes |
+| inactiveBackgroundColor | 非激活状态的背景颜色 | string | no | iOS/Android | yes |
+| inactiveTintColor | 非激活状态的文字颜色 | string | no | iOS/Android | yes |
+| labelStyle | 标签文字样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
+| lazy | 是否懒加载标签页 | boolean | no | iOS/Android | yes |
+| hideNavBar | 是否隐藏导航栏 | boolean | no | iOS/Android | yes |
+| hideTabBar | 是否隐藏标签栏 | boolean | no | iOS/Android | yes |
+| tabBarComponent | 自定义标签栏组件 | React.ComponentType<any> | no | iOS/Android | yes |
+| tabBarPosition | 标签栏位置 | TabBarPositionType | no | iOS/Android | yes |
+| tabBarStyle | 标签栏样式 | StyleProp<ViewStyle> | no | iOS/Android | yes |
+| tabStyle | 单个标签样式 | StyleProp<ViewStyle> | no | iOS/Android | yes |
+| indicatorStyle | 指示器样式 | StyleProp<ViewStyle> | no | iOS/Android | yes |
+| showLabel | 是否显示标签文字 | boolean | no | iOS/Android | yes |
+| swipeEnabled | 是否支持滑动切换 | boolean | no | iOS/Android | yes |
+| tabBarOnPress | 标签栏按下事件处理函数 | Function | no | iOS/Android | yes |
+| backToInitial | 返回时是否回到初始标签页 | boolean | no | iOS/Android | yes |
+
+### 4. Drawer - 抽屉
+
+定义了 抽屉菜单组件的配置选项。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| drawerImage | 抽屉按钮图片 | Image | no | iOS/Android | yes |
+| drawerIcon | 抽屉按钮图标，可以是React元素或组件 | React.ReactElement<any> \| React.ComponentType<any> | no | iOS/Android | yes |
+| drawerPosition | 抽屉位置 | DrawerPositionType | no | iOS/Android | yes |
+
+### 5. Stack - 栈组件
+
+定义了 堆栈导航器的所有配置选项。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| navigationBarStyle | 导航栏样式 | StyleProp<ViewStyle> | no | iOS/Android | yes |
+| icon | 图标 | any | no | iOS/Android | yes |
+| tintColor | 色调颜色 | string | no | iOS/Android | yes |
+| hideNavBar | 是否隐藏导航栏 | boolean | no | iOS/Android | yes |
+| hideTabBar | 是否隐藏标签栏 | boolean | no | iOS/Android | yes |
+| title | 标题 | string | no | iOS/Android | yes |
+| lightbox | 是否以灯箱模式显示 | boolean | no | iOS/Android | yes |
+| tabs | 是否作为标签页 | boolean | no | iOS/Android | yes |
+| initial | 是否作为初始堆栈 | boolean | no | iOS/Android | yes |
+| titleStyle | 标题样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
+| type | 类型 | string | no | iOS/Android | yes |
+| navTransparent | 导航栏是否透明 | boolean | no | iOS/Android | yes |
+| renderer | 渲染器 | any | no | iOS/Android | yes |
+
+### 6. Actions - 导航类
+
+定义了 导航操作的所有方法。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| currentScene | 当前场景信息 | any | no | iOS/Android | yes |
+| jump | 跳转到指定场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| pop | 返回上一个场景 | (params?: { animated?: boolean }) => void | no | iOS/Android | yes |
+| popAndPush | 返回并推入新场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| popTo | 返回到指定场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| push | 推入新场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| refresh | 刷新当前场景 | (props?: any) => void | no | iOS/Android | yes |
+| replace | 替换当前场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| reset | 重置导航栈到指定场景 | (sceneKey: string, props?: any) => void | no | iOS/Android | yes |
+| addRef | 添加引用 | (name: string, ref?: any) => void | no | iOS/Android | yes |
+| drawerOpen | 打开抽屉菜单 | any | no | iOS/Android | yes |
+| drawerClose | 关闭抽屉菜单 | any | no | iOS/Android | yes |
+
+### 7. ActionConstShort - 导航行为
+
+这些常量用于在路由配置和导航操作中明确指定导航行为，确保导航逻辑的清晰和一致。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| JUMP | 跳转动作类型 | string | no | iOS/Android | yes |
+| PUSH | 推入动作类型 | string | no | iOS/Android | yes |
+| PUSH_OR_POP | 推入或弹出动作类型 | string | no | iOS/Android | yes |
+| REPLACE | 替换动作类型 | string | no | iOS/Android | yes |
+| BACK | 返回动作类型 | string | no | iOS/Android | yes |
+| BACK_ACTION | 返回动作 | string | no | iOS/Android | yes |
+| POP_TO | 弹出到指定场景动作类型 | string | no | iOS/Android | yes |
+| REFRESH | 刷新动作类型 | string | no | iOS/Android | yes |
+| RESET | 重置动作类型 | string | no | iOS/Android | yes |
+| FOCUS | 获取焦点动作类型 | string | no | iOS/Android | yes |
+| BLUR | 失去焦点动作类型 | string | no | iOS/Android | yes |
+| ANDROID_BACK | Android返回键动作类型 | string | no | iOS/Android | yes |
+
+
+
+
+
+
+## 遗留问题
+
+无
+## 其他
+
+
+## 开源协议
+
+本项目基于 [The MIT License (MIT)](https://github.com/react-native-oh-library/react-native-router-flux) ，请自由地享受和参与开源。
