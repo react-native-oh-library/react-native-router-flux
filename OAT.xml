@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<oatconfig>
+	<licensefile>LICENSE</licensefile>
+		<filefilterlist>
+			<filefilter name="copyrightPolicyFilter" desc="Filters for compatibility，license header policies">
+				<filteritem type="filename" name=".babelrc.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="MenuIcon.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".buckconfig" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Error.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="ErrorModal.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="home.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Drawer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Util.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".github_changelog_generator" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".eslintrc" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="StyledText.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".flowconfig" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="page.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="LegacyTabs.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="createStackNavigatorHOC.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".npmignore" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name=".watchmanconfig" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="TabBarIcon.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Launch.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Lightbox.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="createTabNavigatorHOC.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="App.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Login3.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="NavBar.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="pathParser.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="index.d.ts" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Colors.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="babel.config.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="MessageBar.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Overlay.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="context.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="yarn.lock" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Layout.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Register.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="OverlayRenderer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="scenes.test.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="metro.config.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="TabIcon.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Reducer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="AppNavigator.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="TabView.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Router.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="setup.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="App-test.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Scene.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="style.scss" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="HomeScreen.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="Stack.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="LinksScreen.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="CustomNavBar.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="BaseLightbox.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="StandaloneNavigation.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="SettingsScreen.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="CustomNavBar2.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="DemoLightbox.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="State.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="CustomNavBarView.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+				<filteritem type="filename" name="a-reducer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="ActionConst.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="EchoView.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="BaseModal.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="CustomDrawer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Tabs.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="StyledText-test.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".prettierrc.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Login.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="LightboxRenderer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="defaultStore.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Login2.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Modal.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="DrawerContent.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.android.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.ios.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Store.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="DrawerContent.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="LICENSE" desc="原三方库证书文件无需更改，因此添加过滤"/>
+			</filefilter>
+			<filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+        <filteritem type="filename" name="LICENSE" desc="原三方库证书文件无需更改，因此添加过滤"/>
+				<filteritem type="filename" name="hvigorfile.ts" desc="hvigor构建脚本，DevEco Studio自动生成，不需要添加许可证头"/>
+        <filteritem type="filename" name=".babelrc.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="MenuIcon.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".buckconfig" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Error.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="ErrorModal.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="home.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Drawer.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Util.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".github_changelog_generator" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".eslintrc" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="StyledText.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".flowconfig" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="page.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="LegacyTabs.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="createStackNavigatorHOC.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".npmignore" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".watchmanconfig" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="TabBarIcon.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Launch.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Lightbox.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="createTabNavigatorHOC.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="App.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Login3.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="NavBar.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="pathParser.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.d.ts" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Colors.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="babel.config.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="MessageBar.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Overlay.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="context.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="yarn.lock" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Layout.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Register.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="OverlayRenderer.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="scenes.test.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="metro.config.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="TabIcon.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Reducer.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="AppNavigator.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="TabView.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Router.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="setup.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="App-test.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Scene.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="style.scss" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="HomeScreen.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Stack.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="LinksScreen.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="CustomNavBar.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="BaseLightbox.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="StandaloneNavigation.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="SettingsScreen.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="CustomNavBar2.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="DemoLightbox.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="State.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="CustomNavBarView.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="a-reducer.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="ActionConst.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="EchoView.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="BaseModal.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="CustomDrawer.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Tabs.js" desc="原库文件，不修改许可证头，以防有修改版权风险"/>
+        <filteritem type="filename" name="StyledText-test.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name=".prettierrc.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Login.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="LightboxRenderer.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="defaultStore.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Login2.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Modal.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="DrawerContent.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.android.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="index.ios.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="Store.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+        <filteritem type="filename" name="DrawerContent.js" desc="原库文件，不修改版权头，以防有修改版权风险"/>
+			</filefilter>
+			<filefilter name="binaryFileTypePolicyFilter" desc="Filters for resources files policies">
+				<filteritem type="filename" name="back_chevron.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="menu_burger.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="back_chevron.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="icon.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="robot-dev.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="robot-prod.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="splash.png" desc="页面展示图标"/>
+				<filteritem type="filename" name="super_simple.gif" desc="页面展示图标"/>
+				<filteritem type="filename" name="SpaceMono-Regular.ttf" desc="页面展示字体资源"/>
+			</filefilter>
+		</filefilterlist>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="license" name="MIT" path=".*" desc="license under the MIT"/>
+            </policy>
+        </policylist>
+	</oatconfig>
+</configuration>

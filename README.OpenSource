@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "react-native-router-flux",
+        "License": "MIT License",
+        "License File": "LICENSE",
+        "Version Number": "4.3.1",
+        "Owner" : "xiafeng@huawei.com",
+        "Upstream URL": "https://github.com/aksonov/react-native-router-flux",
+        "Description": "React Native Router using Flux architecture."
+    }
+]
