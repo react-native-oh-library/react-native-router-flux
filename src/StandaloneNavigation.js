@@ -5,13 +5,12 @@ import { NavigationContainer, createNavigationContainerRef, useRoute } from '@re
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import {  tabData, sceneOriginData, clonesData ,drawerData_arr} from './Store.js'
+import { tabData, sceneOriginData, clonesData, drawerData_arr } from './Store.js'
 import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 import { DeviceEventEmitter } from 'react-native';
 
 // 在文件顶部添加全局方法
@@ -25,12 +24,12 @@ export const closeAppDrawer = () => {
 
 const Drawer = createDrawerNavigator();
 
-var Tab = createMaterialTopTabNavigator();
+var Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export var sceneData = {};
 
-var drawerdata_info={};
+var drawerdata_info = {};
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -57,9 +56,7 @@ export function ReplaceAction(action) {
 
   const type = action.type;
   if (navigationRef.isReady() && type === "REACT_NATIVE_ROUTER_FLUX_REPLACE" && action.routeName != undefined) {
-    //navigateByKey(action.routeName);
     const tabitem = findTabScreenInYourStructure(action.routeName);
-
     console.info("找到的tabitem=", tabitem);
     if (tabitem != null) {
       navigationRef.navigate(tabitem.key);
@@ -121,7 +118,6 @@ const findTabScreenInYourStructure = (targetKey) => {
               }
             }
 
-
         }
       }
     }
@@ -149,8 +145,13 @@ export function goBackWithAction() {
     if (tabitem != null && tabitem.key == id) {
 
     } else {
-      navigationRef.current?.goBack();
-      return true;
+      if (navigationRef.current?.canGoBack?.()) {
+        navigationRef.current?.goBack();
+        return true;
+      } else {
+        return false; // 无法返回
+      }
+
     }
 
   }
@@ -165,23 +166,23 @@ const checkNavigationStructure = () => {
 };
 
 var drawerkey;
-export function navigationAction(action, result,navigation) {
+export function navigationAction(action, result, navigation) {
   console.info("daohangaction", action);
 
   const type = action.type;
   const routeName_key = action.routeName;
-    drawerkey=routeName_key;
+  drawerkey = routeName_key;
 
-      if (navigationRef.isReady() && type === "OPEN_DRAWER") {
- 
-        openAppDrawer();
-        return true;
-      }
+  if (navigationRef.isReady() && type === "OPEN_DRAWER") {
 
-         if (navigationRef.isReady() && type === "CLOSE_DRAWER") {
-          closeAppDrawer();
-        return true;
-      }
+    openAppDrawer();
+    return true;
+  }
+
+  if (navigationRef.isReady() && type === "CLOSE_DRAWER") {
+    closeAppDrawer();
+    return true;
+  }
 
   if (navigationRef.isReady() && type === "Navigation/RESET") {
 
@@ -254,7 +255,6 @@ export function navigationAction(action, result,navigation) {
         isCurrentTab: isCurrentTab
       });
       navigationRef.navigate(action.key, action.params);
-      //  navigationRef.setParams()
       return true;
     }
   }
@@ -318,9 +318,6 @@ function getInitName(tabs) {
   }
 }
 
-
-
-
 // 标签页导航器
 const MainTabs = ({ route, navigation }) => {
   console.log("📦 drawer scene maintabs对象drawerData:", drawerdata_info);
@@ -333,13 +330,13 @@ const MainTabs = ({ route, navigation }) => {
   console.log("📦 drawer scene maintabs对象tabsInfo_tabbar:", tabsInfo_tabbar);
   console.log("📦 drawer scene maintabs对象tabchildren:", tabchildren);
 
-  const backtoint=  tabsInfo_tabbar.backToInitial
-  const bactoInstring=backtoint===true?"initialRoute":"order"
-  const lazy=tabsInfo_tabbar.lazy===false?false:true;
+  const backtoint = tabsInfo_tabbar.backToInitial
+  const bactoInstring = backtoint === true ? "initialRoute" : "order"
+  const lazy = tabsInfo_tabbar.lazy === false ? false : true;
   console.log("📦 drawer scene maintabslazy:", lazy);
-    
-  const postab= tabsInfo_tabbar.tabBarPosition==="top"?"top":"bottom";
-  console.log("postabss--=="+postab);
+
+  const postab = tabsInfo_tabbar.tabBarPosition === "top" ? "top" : "bottom";
+  console.log("postabss--==" + postab);
 
   return (
     <Tab.Navigator
@@ -349,35 +346,53 @@ const MainTabs = ({ route, navigation }) => {
       initialRouteName={getInitName(tabchildren)}
 
 
-    {...(backtoint && { backBehavior: bactoInstring })}
+      {...(backtoint && { backBehavior: bactoInstring })}
       screenListeners={{
-     tabPress:tabsInfo_tabbar.tabBarOnPress,
-  
+        tabPress: tabsInfo_tabbar.tabBarOnPress,
+
       }}
       screenOptions={({ route }) => {
-   const finalHideTabBar = route.params?.hideTabBar;
+        var finalHideTabBar = route.params?.hideTabBar;
+
+        console.log("==route===", route.params);
+        console.log("==route==finalHideTabBar=", finalHideTabBar);
+        var tabstyledata = tabsInfo_tabbar.tabBarStyle;
+        var displayvalue = true;
+        if (finalHideTabBar !== undefined) {
+          displayvalue = finalHideTabBar ? 'none' : 'flex';
+        } else if (tabsInfo_tabbar.hideTabBar) {
+          displayvalue = 'none';
+        } else {
+          displayvalue = 'flex';
+        }
+
+
         return {
           // 全局标签栏样式
           tabBarShowLabel: tabsInfo_tabbar.showLabel,
           // 激活状态标签样式
-         tabBarActiveBackgroundColor: tabsInfo_tabbar.activeBackgroundColor,
-         tabBarInactiveBackgroundColor: tabsInfo_tabbar.inactiveBackgroundColor,
-          tabBarStyle: finalHideTabBar ? { display: 'none' } : tabsInfo_tabbar.tabBarStyle,
-          tabBarActiveTintColor: tabsInfo_tabbar.activeTintColor, // 整个标签栏的背景色
-         tabBarInactiveTintColor: tabsInfo_tabbar.inactiveTintColor, // 激活状态文字/图标颜色
+          tabBarActiveBackgroundColor: tabsInfo_tabbar.activeBackgroundColor,
+          tabBarInactiveBackgroundColor: tabsInfo_tabbar.inactiveBackgroundColor,
+          tabBarStyle: {
+            ...tabstyledata,
+            display: displayvalue
+          },
+          tabBarActiveTintColor: tabsInfo_tabbar.activeTintColor, // 激活文字颜色
+          tabBarInactiveTintColor: tabsInfo_tabbar.inactiveTintColor, // 非激活状态文字/图标颜色
           tabBarLabelStyle: tabsInfo_tabbar.labelStyle,
-          tabBarItemStyle: tabsInfo_tabbar.tabStyle,
+          tabBarItemStyle: tabsInfo_tabbar?.tabStyle,
+
           swipeEnabled: tabsInfo_tabbar.swipeEnabled,
           onPress: tabsInfo_tabbar.tabBarOnPress,
-          tabBarIndicatorStyle:tabsInfo_tabbar.indicatorStyle,
+          tabBarIndicatorStyle: tabsInfo_tabbar.indicatorStyle,
           tabBarScrollEnabled: tabsInfo_tabbar.wrap,
-          lazy:lazy,
+          lazy: lazy,
 
         };
       }}
       tabBar={tabsInfo_tabbar.tabBarComponent}
-   
-   
+
+
     >
       {tabchildren.map((tabItem, index) => {
 
@@ -426,28 +441,27 @@ const MainTabs = ({ route, navigation }) => {
 
               </TouchableOpacity>
 
-
           } else if (renderRightButton !== undefined) {
             rightFun = renderRightButton
           }
 
-              const headerleftinfo=drawerData.props.drawerImage!=undefined?  ()=>( <TouchableOpacity
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <Image
-                    source={drawerData.props.drawerImage}
-                    style={{ width: 32, height: 32 }}
-                    resizeMode='contain'
-                  />
-                </TouchableOpacity>):()=>( <TouchableOpacity
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <drawerData.props.drawerIcon></drawerData.props.drawerIcon>
-                </TouchableOpacity>);
+          const headerleftinfo = drawerData.props.drawerImage != undefined ? () => (<TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            activeOpacity={0.7}
+            style={{ marginLeft: 15 }}
+          >
+            <Image
+              source={drawerData.props.drawerImage}
+              style={{ width: 32, height: 32 }}
+              resizeMode='contain'
+            />
+          </TouchableOpacity>) : () => (<TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            activeOpacity={0.7}
+            style={{ marginLeft: 15 }}
+          >
+            <drawerData.props.drawerIcon></drawerData.props.drawerIcon>
+          </TouchableOpacity>);
           return (
             <Tab.Screen
               key={tabKey}
@@ -458,23 +472,13 @@ const MainTabs = ({ route, navigation }) => {
                 const finalhideNavBar = route.params?.hideNavBar ?? hideNavBar
                 return {
                   title: title || tabItem.title,
-              headerShown: navigationBarStyle!=undefined?true:false,
+                  headerShown: navigationBarStyle != undefined ? true : false,
                   // Header 左边抽屉按钮
                   headerLeft: headerleftinfo,
-
-                 // tabBarStyle: hideTabBar ? { display: 'none' } : { display: 'flex' },
-                  // 顶部导航栏样式
-                  // headerStyle: {
-                  //   backgroundColor: navigationBarStyle?.backgroundColor || '#F5FCFF',
-                  // },
-
-                       headerStyle: navigationBarStyle,
-             
+                  headerStyle: navigationBarStyle,
                   headerTitleStyle: titleStyle,
-                  titleStyle:titleStyle,
+                  titleStyle: titleStyle,
                   tabBarItemStyle: tabsInfo_tabbar.tabStyle,
-             
-
                   // 底部标签栏图标和样式
                   tabBarIcon: ({ focused, color, size }) => {
                     if (icon) {
@@ -501,7 +505,7 @@ const MainTabs = ({ route, navigation }) => {
                   {/* 主屏幕 */}
                   <Stack.Screen
                     name={tabKey}
-    
+
                     options={({ route }) => {
                       console.info(`📊 Tab ${route.name} hideNavBar:`, hideNavBar);
                       console.info(`📊 Tab ${route.name} hideNavBar:`, route);
@@ -509,28 +513,14 @@ const MainTabs = ({ route, navigation }) => {
                       const finalhideNavBar = route.params?.hideNavBar ?? hideNavBar
                       console.info(`📊 Tab ${route.name} finalhideNavBar:`, finalhideNavBar);
 
-
                       return {
                         headerShown: !finalhideNavBar,
                         title: title || tabItem.title,
-
                         // Header 左边抽屉按钮
-                        headerLeft:headerleftinfo,
-
-                        // 顶部导航栏样式
-                        // headerStyle: {
-                        //   backgroundColor: tabItem.navigationBarStyle?.backgroundColor || '#F5FCFF',
-                        // },
-
-                             headerStyle:  tabItem.navigationBarStyle ,
-                        
+                        headerLeft: headerleftinfo,
+                        headerStyle: tabItem.navigationBarStyle,
                         headerTitleAlign: tabItem.titleStyle?.alignSelf || 'center',
-                        // headerTitleStyle: {
-                        //   color: tabItem.titleStyle?.color || '#000',
-                        // },
-
-                               headerTitleStyle:tabItem.titleStyle,
-             
+                        headerTitleStyle: tabItem.titleStyle,
                         headerRight: rightFun, // 右边文字
                       }
                     }}
@@ -629,38 +619,35 @@ const MainTabs = ({ route, navigation }) => {
               console.info(`📊 Tab ${route.name} hideTabBarroute:`, route);
 
               const finalHideTabBar = route.params?.hideTabBar ?? hideTabBar;
-              return {
+              var tabbarstyledata = tabsInfo_tabbar.tabBarStyle;
+              var optiondata = {
                 title: title,
-                headerShown: navigationBarStyle!=undefined?true:false,
-                // 底部标签栏图标和样式
-             tabBarItemStyle: tabsInfo_tabbar.tabStyle,
-                  headerStyle: navigationBarStyle,
-             
-                  headerTitleStyle: titleStyle,
-                  titleStyle:titleStyle,
-        
-      tabBarIcon: ({ focused, color, size }) => {
-                    if (icon) {
-                      // 使用自定义图标组件
-                      return React.createElement(icon, {
-                        focused,
-                        title: tabTitle
-                      });
-                    }
-                    // 默认图标
-                    return (
-                      <Ionicons
-                        name={focused ? 'home' : 'home-outline'}
-                        size={size}
-                        color={color}
-                      />
-                    );
-                  },
-                options:{
-                       //tabStyle:tabsInfo_tabbar.tabStyle,
+                headerShown: navigationBarStyle != undefined ? true : false,
+                headerStyle: navigationBarStyle,
+                headerTitleStyle: titleStyle,
+                titleStyle: titleStyle,
+
+                tabBarIcon: ({ focused, color, size }) => {
+                  if (icon) {
+                    // 使用自定义图标组件
+                    return React.createElement(icon, {
+                      focused,
+                      title: tabTitle
+                    });
+                  }
+                  // 默认图标
+                  return (
+                    <Ionicons
+                      name={focused ? 'home' : 'home-outline'}
+                      size={size}
+                      color={color}
+                    />
+                  );
+                },
+                options: {
                 }
-                
-              }
+              };
+              return optiondata;
             }}
           >
 
@@ -691,7 +678,6 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
       scenesArray.map((stackSceneItem) => {
 
         // 获取标签页信息
-
         let sceneKey = stackSceneItem.key;
         // 直接解构获取需要的属性
         const {
@@ -708,10 +694,6 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
         console.info("logggoookey==", sceneKey);
         console.info("logggooo", stackSceneItem.props);
 
-        console.log(`📦 处理stackscene页 :`, stackSceneItem);
-
-        console.log(`📦 处理stackscene页 rightTitle:`, rightTitle);
-
         var rightFun = () => { };
 
         if (rightTitle !== undefined) {
@@ -721,15 +703,11 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
               activeOpacity={0.7} // 点击时的透明度
             >
               <Text  >{rightTitle}</Text>
-
             </TouchableOpacity>
-
 
         } else if (renderRightButton !== undefined) {
           rightFun = renderRightButton
         }
-
-
 
         return <Stack.Screen
           key={sceneKey}
@@ -743,23 +721,23 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
             const finalhideNavBar = route.params?.hideNavBar ?? hideNavBar
             console.info(`📊 Tab ${route.name} finalhideNavBar:`, finalhideNavBar);
 
-            const headerleftinfo=drawerData.props.drawerImage!=undefined?  ()=>( <TouchableOpacity
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <Image
-                    source={drawerData.props.drawerImage}
-                    style={{ width: 32, height: 32 }}
-                    resizeMode='contain'
-                  />
-                </TouchableOpacity>):()=>( <TouchableOpacity
-                  onPress={() => navigation.openDrawer()}
-                  activeOpacity={0.7}
-                  style={{ marginLeft: 15 }}
-                >
-                  <drawerData.props.drawerIcon></drawerData.props.drawerIcon>
-                </TouchableOpacity>);
+            const headerleftinfo = drawerData.props.drawerImage != undefined ? () => (<TouchableOpacity
+              onPress={() => navigation.openDrawer()}
+              activeOpacity={0.7}
+              style={{ marginLeft: 15 }}
+            >
+              <Image
+                source={drawerData.props.drawerImage}
+                style={{ width: 32, height: 32 }}
+                resizeMode='contain'
+              />
+            </TouchableOpacity>) : () => (<TouchableOpacity
+              onPress={() => navigation.openDrawer()}
+              activeOpacity={0.7}
+              style={{ marginLeft: 15 }}
+            >
+              <drawerData.props.drawerIcon></drawerData.props.drawerIcon>
+            </TouchableOpacity>);
 
 
             return {
@@ -768,15 +746,15 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
 
               // Header 左边抽屉按钮
               headerLeft: headerleftinfo,
-     
-                   headerStyle: {
-                backgroundColor: titleStyle!=undefined?titleStyle?.backgroundColor : tabItem.titleStyle?.backgroundColor,
+
+              headerStyle: {
+                backgroundColor: titleStyle != undefined ? titleStyle?.backgroundColor : tabItem.titleStyle?.backgroundColor,
               },
-              headerTitleAlign:titleStyle?.alignSelf || 'center',
-              headerTitleStyle: titleStyle!=undefined?titleStyle:tabItem.titleStyle,
-         
-              titleStyle:titleStyle,
-  
+              headerTitleAlign: titleStyle?.alignSelf || 'center',
+              headerTitleStyle: titleStyle != undefined ? titleStyle : tabItem.titleStyle,
+
+              titleStyle: titleStyle,
+
               headerRight: rightFun, // 右边文字
             }
           }}
@@ -794,15 +772,12 @@ function GetTabStack(childrenScens, tabItem, drawerData, tabbarinfo, navigation)
               rightTitle={rightTitle || ""} />
           }
 
-
           }
 
         </Stack.Screen>
       })
 
-
     }
-
 
     {
 
@@ -907,29 +882,29 @@ const drawerConfig = {
 
 export function StandaloneNavigation() {
 
-    console.log("📦 drawer scene 对象drawerDatadrawerkey:", drawerkey);
-        console.log("📦 drawer scene drawerData_arr:", drawerData_arr);
+  console.log("📦 drawer scene 对象drawerDatadrawerkey:", drawerkey);
+  console.log("📦 drawer scene drawerData_arr:", drawerData_arr);
 
-  for(let itemdata of drawerData_arr){
+  for (let itemdata of drawerData_arr) {
 
-    if(drawerkey===itemdata.key){
-      drawerdata_info=itemdata;
+    if (drawerkey === itemdata.key) {
+      drawerdata_info = itemdata;
     }
   }
 
-   var sceneInfo = drawerdata_info.props.children.props;
+  var sceneInfo = drawerdata_info.props.children.props;
   var tabsInfo_tabbar = sceneInfo.children.props;
 
   console.log("📦 drawer scene maintabs对象tabsInfo_tabbar:", tabsInfo_tabbar);
 
-   const postab= tabsInfo_tabbar.tabBarPosition
-  console.log("postabss--=="+postab);
-   if("top"===postab){
-    console.log("postab=="+postab);
-    Tab=createMaterialTopTabNavigator();
-   }else{
-     Tab=createBottomTabNavigator();
-   }
+  const postab = tabsInfo_tabbar.tabBarPosition
+  console.log("postabss--==" + postab);
+  if ("top" === postab) {
+    console.log("postab==" + postab);
+    Tab = createMaterialTopTabNavigator();
+  } else {
+    Tab = createBottomTabNavigator();
+  }
 
   console.log("📦 drawer scene 对象drawerData--selitem-:", drawerdata_info);
   console.log("📦 drawer scene 对象prpdrawerData:", drawerdata_info.props.contentComponent);
@@ -941,24 +916,24 @@ export function StandaloneNavigation() {
         routeName="drawer"
         initialRouteName="tabbar"
         drawerContent={(props) => {
-           const { navigation } = props;
-    
-    // 在 drawerContent 中添加事件监听
-    React.useEffect(() => {
-      const openSub = DeviceEventEmitter.addListener('APP_OPEN_DRAWER', () => {
-        console.log('🚀 打开抽屉');
-        navigation.openDrawer();
-      });
-      
-      const closeSub = DeviceEventEmitter.addListener('APP_CLOSE_DRAWER', () => {
-        navigation.closeDrawer();
-      });
-      
-      return () => {
-        openSub.remove();
-        closeSub.remove();
-      };
-    }, [navigation]);
+          const { navigation } = props;
+
+          // 在 drawerContent 中添加事件监听
+          React.useEffect(() => {
+            const openSub = DeviceEventEmitter.addListener('APP_OPEN_DRAWER', () => {
+              console.log('🚀 打开抽屉');
+              navigation.openDrawer();
+            });
+
+            const closeSub = DeviceEventEmitter.addListener('APP_CLOSE_DRAWER', () => {
+              navigation.closeDrawer();
+            });
+
+            return () => {
+              openSub.remove();
+              closeSub.remove();
+            };
+          }, [navigation]);
           return <drawerdata_info.props.contentComponent />
         }}
         screenOptions={({ route, navigation }) => {
@@ -993,11 +968,10 @@ export function StandaloneNavigation() {
         }}
 
         drawerContentOptions={drawerConfig}
-
-      screenListeners={{
-    drawerOpen: () => console.log('🎉 抽屉打开了（screenListeners）'),
-    drawerClose: () => console.log('🔒 抽屉关闭了（screenListeners）'),
-  }}
+        screenListeners={{
+          drawerOpen: () => console.log('🎉 抽屉打开了（screenListeners）'),
+          drawerClose: () => console.log('🔒 抽屉关闭了（screenListeners）'),
+        }}
       >
         {<Drawer.Screen
           name="tabbar"
